@@ -1,0 +1,32 @@
+User Account with rememberance of users.
+    php cookies to remember users : https://stackoverflow.com/questions/12091951/php-sessions-login-with-remember-me
+
+Public / Private option. (permissions)
+    Objects will have public/private field that can be filtered on.
+
+Space Limitation + (uploading a directory).
+    Can't have User's uploading Infinetely. Need reasonable limit to balance # users with the # pictures they can uploading
+
+Search for Specific Uploaders (time permiting)
+    Query the repository for a specifc user(s) pictures only to be displayed.
+
+DB / Repo management from Admin Account (time permiting)
+    Will simplify maintainence of the DB / Images. Otherwise will have to do manually
+
+
+Technologies.
+    php server side language
+    mysql DB's
+
+Approach:
+    Channel stress from job hunting into a project
+
+
+Skills / techniques to practice. 
+
+    Proper Sql Query Structure : https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php
+    More in depth mysql
+    More in depth php
+
+
+

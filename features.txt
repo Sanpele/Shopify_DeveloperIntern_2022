@@ -1,0 +1,14 @@
+User Account with rememberance of users.
+    
+    php cookies to remember users : https://stackoverflow.com/questions/12091951/php-sessions-login-with-remember-me
+
+Public / Private option. (permissions)
+
+
+
+Skills / techniques to practice. 
+
+    Proper Sql Query Structure : https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php
+
+
+
