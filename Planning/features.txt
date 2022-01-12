@@ -4,6 +4,9 @@ User Account with rememberance of users.
 
 Public / Private option. (permissions)
 
+sqlite3 : https://riptutorial.com/php/example/27461/sqlite3-quickstart-tutorial
+    Lovely tutorial / quickstart with additional quick advice
+
 
 
 Skills / techniques to practice. 
@@ -11,4 +14,6 @@ Skills / techniques to practice.
     Proper Sql Query Structure : https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php
 
 
-
+    IP ADDRESSs in PHP : https://stackoverflow.com/questions/3003145/how-to-get-the-client-ip-address-in-php
+        45 chars in DB if saved as string
+        
