@@ -11,13 +11,17 @@ class db_manager {
     }
 
     public function getDB() { // enforce singleton pattern on DB
-        if (self::$db == NULL) {
-            self::$db = new sqlite_imp();
-            return self::$db;
+        if (db_manager::$db == NULL) {
+            db_manager::$db = new sqlite_imp();
+            return db_manager::$db;
         }
         else {
-            return self::$db;
+            return db_manager::$db;
         }
+    }
+
+    public function resetDB() {
+        db_manager::$db = NULL;
     }
 
 }

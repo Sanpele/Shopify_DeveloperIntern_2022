@@ -7,38 +7,71 @@ class sqlite_imp implements db_interface {
     private static $db;
 
     public function __construct() {
-        $db = new SQLite3('db.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+        sqlite_imp::$db = new SQLite3('db.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 
-        $db->query('CREATE TABLE IF NOT EXISTS "people" (
+        sqlite_imp::$db->query('CREATE TABLE IF NOT EXISTS "people" (
             "id" INTEGER PRIMARY KEY NOT NULL,
             "username" VARCHAR,
             "pic_directory" VARCHAR,
+            "privacy" BIT,
             "space_quota" INTEGER,
             "password" VARCHAR,
             "pass_hash" VARCHAR,
-            "ipaddress" VARCHAR,
+            "ipaddress" VARCHAR
         )');
 
-        return $db;
+        print_r(sqlite_imp::$db);
+
+        return sqlite_imp::$db;
     }
     public function insert($person) {
-        $statement = $db->prepare('INSERT INTO "visits" ("user_id", "url", "time") VALUES (:uid, :url, :time)');
-        $statement->bindValue(':uid', 1337);
-        $statement->bindValue(':url', '/test');
-        $statement->bindValue(':time', date('Y-m-d H:i:s'));
+        $statement = sqlite_imp::$db->prepare('INSERT INTO "people" ("id", "username", "pic_directory", "privacy", "space_quota", "password", "pass_hash", "ipaddress") 
+            VALUES (:id, :username, :pic_directory, :privacy, :space_quota, :pass, :pass_hash, :ipaddress)');
+        $statement->bindValue(':id', $person->getID());
+        $statement->bindValue(':username', $person->username);
+        $statement->bindValue(':pic_directory', $person->getPicDir());
+
+        if ($person->getPrivacy() == TRUE)
+            $statement->bindValue(':privacy', 1);
+        else
+            $statement->bindValue(':privacy', 0);
+
+        $statement->bindValue(':space_quota', $person->getQuota());
+        $statement->bindValue(':pass', $person->getPass());
+        $statement->bindValue(':pass_hash', $person->getPassHash());
+        $statement->bindValue(':ipaddress', $person->getIP());
+
         $statement->execute(); // you can reuse the statement with different values
     }
     public function update($person) {
 
     }
-    public function getByPrivacy() {
+    
+    /*
+        Query DB and unpack results, returning array of PersonObj.
+    */
+    public function getAllPublic() {
+        $statement = sqlite_imp::$db->prepare('SELECT * FROM "people"');
+        $result = $statement->execute();
 
+        
+        while ($row = $result->fetchArray(SQLITE3_NUM)) {
+            echo "<br>";
+            print_r ($row);
+
+            // $arr[] = 
+        }
+        $result->finalize();
     }
     public function getByID($id) {
 
     }
     public function delete($id) {
 
+    }
+    public function userCount() {
+        $userCount = sqlite_imp::$db->querySingle('SELECT COUNT(DISTINCT "id") FROM "people"');
+        return $userCount;
     }
 
 
