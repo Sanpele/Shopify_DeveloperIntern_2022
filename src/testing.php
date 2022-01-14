@@ -1,10 +1,10 @@
 <?php
 
-require_once("PersonObj.php");
-require_once("PictureObj.php");
+require_once("objects/PersonObj.php");
+require_once("objects/PictureObj.php");
 
-require_once("db_manager.php");
-require_once("SQlite3_DB.php");
+require_once("DB/db_manager.php");
+require_once("DB/SQlite3_DB.php");
 
 /*
     Testing File. Things to test : 
@@ -13,7 +13,6 @@ require_once("SQlite3_DB.php");
 */
 
 function runAllTests() {
-
     echo "<br> STARTING TESTING <br> <br>";
     // testGetByID();
     // testDeleteByID();
