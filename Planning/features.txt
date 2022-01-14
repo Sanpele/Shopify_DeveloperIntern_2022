@@ -9,11 +9,14 @@ sqlite3 : https://riptutorial.com/php/example/27461/sqlite3-quickstart-tutorial
 
 
 
+
 Skills / techniques to practice. 
 
     Proper Sql Query Structure : https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php
 
-
     IP ADDRESSs in PHP : https://stackoverflow.com/questions/3003145/how-to-get-the-client-ip-address-in-php
         45 chars in DB if saved as string
+
+	PHP OBJECT / MULTIPLE CONSTRUCTOR :  https://stackoverflow.com/questions/1699796/best-way-to-do-multiple-constructors-in-php
+
         

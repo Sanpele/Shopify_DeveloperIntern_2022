@@ -1,6 +1,9 @@
 <?php
 
+define("DB_NAME", "people");
+
 interface db_interface {
+    
     public function __construct();
     public function insert($person);
     public function update($person);
