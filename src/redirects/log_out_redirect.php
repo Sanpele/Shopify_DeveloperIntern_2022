@@ -8,7 +8,7 @@ $_SESSION['sign_up'] = 0;
 print_r($_SESSION);
 setcookie("uname",$cookie_hash,time()-3600,'/');
 
-header("Location: index.php");
+header("Location: ../index.php");
 
 
 ?>

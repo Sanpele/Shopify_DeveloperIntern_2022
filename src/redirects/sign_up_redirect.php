@@ -6,7 +6,7 @@ session_start();
 $_SESSION['logged_in'] = 0; // log in on reload
 $_SESSION['sign_up'] = 1;
 
-header("Location: index.php");
+header("Location: ../index.php");
 
 
 ?>

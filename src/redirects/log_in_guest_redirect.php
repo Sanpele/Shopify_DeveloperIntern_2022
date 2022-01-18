@@ -8,7 +8,7 @@ $_SESSION['public'] = 1; // display all public images
 $_SESSION['username'] = "guest"; // guest user
 setcookie("uname",$cookie_hash,time()-3600,'/');
 
-header("Location: index.php");
+header("Location: ../index.php");
 
 
 ?>

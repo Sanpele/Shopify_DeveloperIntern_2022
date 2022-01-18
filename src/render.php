@@ -21,7 +21,7 @@ function printLogout() {
     echo '
     <br>
     <br>
-    <form action="log_out.php" method="post">
+    <form action="redirects/log_out_redirect.php" method="post">
     <Button type="submit" name="Log Out" />Log Out</Button>
     </form>
     <hr>
@@ -31,10 +31,10 @@ function printLogout() {
 
 function printSignUp() {
     echo '
-    <form action="log_in_guest.php" method="post">
+    <form action="redirects/log_in_guest_redirect.php" method="post">
     Sign in as Guest : <Button type="submit" name="Sign In" />Guest Sign In</Button>
     </form>
-    <form action="log_out.php" method="post">
+    <form action="redirects/log_out_redirect.php" method="post">
     Existing User : <Button type="submit" name="Sign In" />Existing User (Sign In)</Button>
     </form>
     <form action="sign_up.php" method="post">
@@ -51,10 +51,10 @@ function printSignUp() {
 
 function printSignIn() {
     echo '
-    <form action="sign_up_redirect.php" method="post">
+    <form action="redirects/sign_up_redirect.php" method="post">
     Sign Up : <Button type="submit" name="Sign In" />New User (Sign Up)</Button>
     </form>
-    <form action="handle_form.php" method="post">
+    <form action="handle_login_form.php" method="post">
     <p>Sign In</p>
     <p>Your username: <input type="text" name="username" /></p>
     <p>Your password: <input type="text" name="password" /></p>
