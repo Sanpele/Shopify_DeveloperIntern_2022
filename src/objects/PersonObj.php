@@ -22,8 +22,17 @@ class PersonObj {
     public static function newPerson($row) {
         $instance = new self();
 
-        $row['id'] = self::$num_person;
-        self::$num_person++;
+        $num = intval(file_get_contents("objects/num_people.txt"));
+        fclose($num_fd);
+
+        echo "<br>THE NUM ==" . $num;
+
+        $row['id'] = $num;
+        $num++;
+
+        $num_w = fopen("objects/num_people.txt", "w") or die("unable to open file");
+        fwrite($num_w, $num);
+        fclose($num_w);
 
         $instance->fill($row);
 

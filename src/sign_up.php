@@ -41,7 +41,7 @@ if (isset($_POST['username']) AND isset($_POST['password']) AND $_POST['username
     $_SESSION['username'] = $user; // set username 
     $_SESSION['logged_in'] = 1; // log in on reload
     $_SESSION['public'] = 1; // display public images
-    // header("Location: index.php");
+    header("Location: index.php");
 
 }
 else {
