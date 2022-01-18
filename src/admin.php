@@ -27,6 +27,7 @@ function checkCookie() {
             $_SESSION['cookie'] = $uname;
             // reset expiry date
             setcookie("uname",$uname,time()+3600*24*365,'/');
+            return TRUE;
         }
         else
             echo "<br> COOKIE EXISTS BUT NOT FOUND IN DB";
@@ -34,8 +35,6 @@ function checkCookie() {
     else {
         echo "<br> NO COOKIE FOUND";
     }
-
-
     return FALSE;
 }
 
@@ -82,7 +81,15 @@ function displayPics() {
     if (isset($_SESSION['public']) AND $_SESSION['public'] === 1) {
         echo "<br> PRINTING ALL IMAGES";
         $all_people = $db->getAllPublic();
-        printImages($all_people);
+
+        $array_of_dir = array();
+
+        // loop over all public people in DB and add the dir to a
+        foreach ($all_people as $person) {
+            $array_of_dir[] = $person->getPicDir();
+        }
+
+        printImages($array_of_dir);
     }
     else {
         echo "<br> PRINTING JUST YOUR IMAGES";
@@ -93,9 +100,7 @@ function displayPics() {
             echo "<br>BIG ERROR, WE THE PERSON FOUND IN THE SESSION VARIABLE IS NOT IN OUR DB, THAT DOSEN't MAKE MUCH SENSE";
         }
         else {
-
-
-
+            printImages(array($person->getPicDir()));
         }
 
     }

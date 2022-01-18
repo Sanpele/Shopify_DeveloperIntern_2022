@@ -114,6 +114,46 @@ function printFilter() {
 function printImages($arr_of_dir) {
     // echo "Pictures are of the following Dir";
     // print_r($arr_of_dir);
+    $num_cols = 4;
+    $num_pics = 0;
+    $pic_names = array();
+
+    $pics = "pics/";
+
+    // for each directory
+    foreach ($arr_of_dir as $sub_dir) {
+        $dir = new DirectoryIterator($pics . $sub_dir);
+        foreach ($dir as $fileinfo) {
+            if (!$fileinfo->isDot()) {
+                // var_dump($fileinfo->getFilename());
+                $num_pics+=1;
+                $pic_names[] = $pics . $sub_dir . $fileinfo->getFilename();
+            }
+        }
+    }
+
+    print_r($pic_names);
+    echo "testing 5 / 4" . intval(5 / 4);
+    
+    $html = "";
+
+    $remainder = $num_pics;
+    for ($i = 0; $i < intval($num_pics / $num_cols) + 1; $i++) {
+        echo "<br> Adding Row";
+        $html .= '<div class="row">';
+        for ($j = 0; $j < $num_cols && $remainder > 0; $j++) {
+            echo "Adding column " . $j;
+            $html .= '
+            <div class="column">
+            <img class="picture_list_1" src="' . $pic_names[$i * $num_cols + $j] . '" alt = "Picture Sequence" style="width: 100%">
+            </div>';
+            $remainder--;
+        }
+        $html .= "</div>";
+    }
+
+    echo $html;
+
 }
 
 ?>
