@@ -3,10 +3,8 @@
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/session'));
 session_start();
 
-$_SESSION['logged_in'] = 0;
-$_SESSION['sign_up'] = 0;
-print_r($_SESSION);
-setcookie("uname",$cookie_hash,time()-3600,'/');
+$_SESSION['logged_in'] = 0; // log in on reload
+$_SESSION['sign_up'] = 1;
 
 header("Location: index.php");
 
