@@ -79,6 +79,8 @@ function printInfo() {
     }   
 
     // also add abbility for user to upload images
+    echo "<p> Images must one of the following formates: jpeg, jpg, png, or gif </p>";
+    echo "<p> Likewise the max filesize of an image is 500kb currently";
     echo '
     <form action="upload.php" method="post" enctype="multipart/form-data">
     Select image to upload:
@@ -87,10 +89,16 @@ function printInfo() {
     </form>
     ';
 
-
-
     echo "<hr>";
 
+}
+
+function printRefreshButton() {
+    echo '
+    <form action="redirects/refresh.php" method="post">
+    <Button type="submit" name="Sign In" />Take Me Back</Button>
+    </form>
+    ';
 }
 
 /*
@@ -105,7 +113,7 @@ function printFilter() {
 */
 function printImages($arr_of_dir) {
     // echo "Pictures are of the following Dir";
-    print_r($arr_of_dir);
+    // print_r($arr_of_dir);
 }
 
 ?>

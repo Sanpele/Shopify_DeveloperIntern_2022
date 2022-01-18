@@ -80,10 +80,12 @@ function displayPics() {
 
     // print_r($_SESSION);
     if (isset($_SESSION['public']) AND $_SESSION['public'] === 1) {
+        echo "<br> PRINTING ALL IMAGES";
         $all_people = $db->getAllPublic();
         printImages($all_people);
     }
     else {
+        echo "<br> PRINTING JUST YOUR IMAGES";
         $person_name = $_SESSION['username'];
         $person = $db->getByName($person_name);
 
@@ -92,7 +94,7 @@ function displayPics() {
         }
         else {
 
-            
+
 
         }
 

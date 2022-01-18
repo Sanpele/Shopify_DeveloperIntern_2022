@@ -1,5 +1,10 @@
 <?php
 
+require_once("render.php");
+
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/session'));
+session_start();
+
 $target_dir = "pics/" . $_SESSION['username'] . '/';
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -41,10 +46,13 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+    echo "<br>The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
   } else {
-    echo "Sorry, there was an error uploading your file.";
+    echo "<br>Sorry, there was an error uploading your file.";
   }
 }
+
+printRefreshButton();
+
 
 ?>

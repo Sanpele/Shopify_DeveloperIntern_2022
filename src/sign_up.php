@@ -21,7 +21,7 @@ if (isset($_POST['username']) AND isset($_POST['password']) AND $_POST['username
     setcookie("uname",$cookie_hash,time()+3600*24*365,'/');
     
     $person_arr = toArr($user, $user . '/', FALSE, $pass, $cookie_hash, $user_ip);
-    mkdir("pics/" . $person_arr->getPicDir());
+    mkdir("pics/" . $person_arr['pic_directory']);
     $new_person = PersonObj::newPerson($person_arr);
     $db->insert($new_person);
 
