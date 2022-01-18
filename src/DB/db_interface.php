@@ -1,6 +1,7 @@
 <?php
 
-define("DB_NAME", "people");
+define("DB_NAME", "dbTest");
+// define("DB_NAME", "people");
 
 interface db_interface {
     

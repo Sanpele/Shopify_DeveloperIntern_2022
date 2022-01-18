@@ -10,7 +10,7 @@ class db_manager {
         $db = NULL;
     }
 
-    public function getDB() { // enforce singleton pattern on DB
+    public function getDB() { // singleton pattern on DB
         if (db_manager::$db == NULL) {
             db_manager::$db = new sqlite_imp();
             return db_manager::$db;

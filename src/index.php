@@ -7,49 +7,62 @@ require_once("admin.php");
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/session'));
 session_start();
 
-echo "<br><p> Hello There";
-
 $testing = FALSE;
 
 function load_picture_page() {
     printHeader();
 
-    
+    echo "<br> You are Logged in ! Hello from the picture page :D";
+
+    printLogout();
+
+    // print user info
+    printInfo();
+
+    // display all user pics
+    displayPics();
+
+
+    // print pictures
 
     printFooter();
 }
 
-function load_main_page() {
-
+function load_menu_page() {
     printHeader();
 
-
-    if (!$testing) {     // RENDER IMG REPO HTML
-
-        // echo "<br>LOGIN :" . $_SESSION['error_msg'];
-
-        if (isset($_SESSION['error_msg']))
-            echo "<br>" . $_SESSION['error_msg'];
-
-        if (checkCookie()) {
-            
-        }
-        else {
-            printSignIn();
-        }
-
-    } 
-    else {              // RUN TEST CODE
-        runAllTests();
+    if (checkCookie()) {
+        load_picture_page();
+    }
+    else {
+        printSignIn();
     }
 
     printFooter();
+}
+
+function load_sign_up() {
+    printHeader();
+
+    printSignUp();
+
+    printFooter();
 
 }
 
-if (!isset($_SESSION['logged_in']) or $_SESSION['logged_in'] === FALSE)
-    load_main_page();
-else 
-    load_picture_page();
+if ($testing) { // run testing code
+    runAllTests();
+}
+else {
 
+    // not signed in and wants to 
+    if ((!isset($_SESSION['logged_in']) or $_SESSION['logged_in'] === 0) AND isset($_SESSION['sign_up']) AND $_SESSION['sign_up'] === 1) {
+        load_sign_up();
+    }
+    // print_r($_SESSION);
+    else if (!isset($_SESSION['logged_in']) or $_SESSION['logged_in'] === 0)
+        load_menu_page();
+    else 
+        load_picture_page();
+}
 ?>

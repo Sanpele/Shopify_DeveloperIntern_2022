@@ -84,6 +84,22 @@ class sqlite_imp implements db_interface {
 
     }
 
+    public function getPersonHash($hash) {
+        $statement = sqlite_imp::$db->prepare('SELECT * FROM DB_NAME WHERE "pass_hash" = ?');
+        $statement->bindValue(1, $hash);
+        $result = $statement->execute();
+        $row = $result->fetchArray(SQLITE3_ASSOC);
+
+        $person = NULL;
+        if ($row != NULL) {
+            $person = PersonObj::withRow($row);
+        }
+
+        // THROW CUSTOM ERROR IF RESULT IS NULL?
+
+        return $person;
+    }
+
     public function getByName($username) {
         $statement = sqlite_imp::$db->prepare('SELECT * FROM DB_NAME WHERE "username" = ?');
         $statement->bindValue(1, $username);

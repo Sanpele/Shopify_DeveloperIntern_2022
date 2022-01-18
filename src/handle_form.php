@@ -10,17 +10,13 @@ if (isset($_POST['username']) AND isset($_POST['password']) AND $_POST['username
     $user = htmlspecialchars($_POST['username']);
     $pass = htmlspecialchars($_POST['password']);
 
-    $_SESSION['logged_in'] = TRUE;
-
     trySignIn($user, $pass);
 
-    header("Location: index.php");
-
-    echo "<br>User = $user, Pass = $pass";
+    // header("Location: index.php");
+    // echo "<br>User = $user, Pass = $pass";
 }
 else {
-    echo "<br>Sign In Failed, Refresh to try again";
-    $_SESSION['error_msg'] = "INVALID OR EMPTY INPUT";
+    $_SESSION['error_msg'] = "Your username / password was not allowed, please try again";
     header("Location: index.php");
 }
 
