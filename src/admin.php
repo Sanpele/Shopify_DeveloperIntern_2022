@@ -78,13 +78,24 @@ function displayPics() {
     $db = $db_ctl->getDB();
     $all_people = $db->getAllPublic();
 
-    print_r($_SESSION);
+    // print_r($_SESSION);
     if (isset($_SESSION['public']) AND $_SESSION['public'] === 1) {
         $all_people = $db->getAllPublic();
         printImages($all_people);
     }
     else {
-        $one = array();
+        $person_name = $_SESSION['username'];
+        $person = $db->getByName($person_name);
+
+        if ($person === NULL) { // error, person we operating on not in DB, this should never be reached
+            echo "<br>BIG ERROR, WE THE PERSON FOUND IN THE SESSION VARIABLE IS NOT IN OUR DB, THAT DOSEN't MAKE MUCH SENSE";
+        }
+        else {
+
+            
+
+        }
+
     }
 }
 

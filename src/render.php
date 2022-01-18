@@ -78,6 +78,17 @@ function printInfo() {
         echo "<br>Specific, relevant and in-depth user info";
     }   
 
+    // also add abbility for user to upload images
+    echo '
+    <form action="upload.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
+    </form>
+    ';
+
+
+
     echo "<hr>";
 
 }
@@ -93,7 +104,7 @@ function printFilter() {
     prints html + images for all images in $arr_dir array
 */
 function printImages($arr_of_dir) {
-    echo "Pictures are of the following Dir";
+    // echo "Pictures are of the following Dir";
     print_r($arr_of_dir);
 }
 

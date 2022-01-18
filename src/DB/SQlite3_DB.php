@@ -45,7 +45,7 @@ class sqlite_imp implements db_interface {
     }
     public function update($person) {
 
-
+        
 
     }
     
@@ -129,6 +129,19 @@ class sqlite_imp implements db_interface {
     public function userCount() {
         $userCount = sqlite_imp::$db->querySingle('SELECT COUNT(DISTINCT "id") FROM DB_NAME');
         return $userCount;
+    }
+
+    public function deleteAll() {
+        $query = "DELETE FROM DB_NAME"; // Query to delete all records 
+        $sql = sqlite_imp::$db->prepare($query);
+
+        if($sql->execute()){
+            echo "Successfully deleted  records ";
+        }
+        else{
+            print_r($sql->errorInfo()); // if any error is there it will be posted
+            $msg = " Database problem, please contact site admin ";
+        }
     }
 
 

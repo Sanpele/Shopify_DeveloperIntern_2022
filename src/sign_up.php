@@ -17,32 +17,19 @@ if (isset($_POST['username']) AND isset($_POST['password']) AND $_POST['username
     $db = $db_ctl->getDB();
 
     $user_ip = $_SERVER['REMOTE_ADDR'];
-
     $cookie_hash = md5(sha1($user. $user_ip));
-
-    if(setcookie("uname",$cookie_hash,time()+3600*24*365,'/'))
-        echo "<br> COOKIE WORKED";
-    else
-        echo "<br> COOKIE FAILED";
+    setcookie("uname",$cookie_hash,time()+3600*24*365,'/');
     
     $person_arr = toArr($user, $user . '/', FALSE, $pass, $cookie_hash, $user_ip);
+    mkdir("pics/" . $person_arr->getPicDir());
     $new_person = PersonObj::newPerson($person_arr);
-    echo($new_person);
-    print_r($new_person);
-
-    $count = $db->userCount();
-    echo "<br> Count = " . $count;
-
     $db->insert($new_person);
-
-    $count = $db->userCount();
-    echo "<br> Count = " . $count;
 
     $_SESSION['username'] = $user; // set username 
     $_SESSION['logged_in'] = 1; // log in on reload
     $_SESSION['public'] = 1; // display public images
     header("Location: index.php");
-
+    
 }
 else {
     $_SESSION['error_msg'] = "Your username/password was not allowed, please try again";

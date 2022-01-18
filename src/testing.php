@@ -18,9 +18,39 @@ function runAllTests() {
     echo "<br> STARTING TESTING <br> <br>";
     // testGetByID();
     // testDeleteByID();
-    testDB();
+    // testDB();
+    testDeleteAll();
 
     echo "<br> ------------- PASSED ALL TESTS --------------";
+}
+
+
+function testDeleteAll() {
+
+    $db_ctl = new db_manager();
+    $db = $db_ctl->getDB();
+
+    $a1 = toArr("Colin", "Colin/", TRUE, "Waugh", "*****", $_SERVER['REMOTE_ADDR']);
+    $a2 = toArr("Colin2", "Colin2/", TRUE, "Waugh2", "******", $_SERVER['REMOTE_ADDR']);
+    $a3 = toArr("Colin3", "Colin3/", FALSE, "Waugh3", "******", $_SERVER['REMOTE_ADDR']);
+    
+    $person1 = PersonObj::newPerson($a1);
+    $person2 = PersonObj::newPerson($a2);
+    $person3 = PersonObj::newPerson($a3);
+
+    $db->insert($person1);
+    $db->insert($person2);
+    $db->insert($person3);
+
+    $count = $db->userCount();
+    assert($count == 3, "USER COUNT ERROR");
+    echo "<br>" . "6 = $count";
+
+    $db->deleteAll();
+
+    $count = $db->userCount();
+    assert($count == 0, "USER COUNT ERROR");
+    echo "<br>" . "0 = $count";
 }
 
 function testDeleteByID() {
