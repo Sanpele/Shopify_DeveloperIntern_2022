@@ -14,6 +14,14 @@ function printFooter() {
     fclose($footer);
 }
 
+function printSignUp() {
+    echo '
+    <p>Sign In or View Public Images
+    <button onclick="document.location="default.asp"">Public Images</button> 
+    <button onclick="document.location="default.asp"">Sign In</button> 
+    ';
+}
+
 function printSignIn() {
     echo '
     <form action="handle_form.php" method="post">
@@ -44,8 +52,8 @@ function printFilter() {
 /*
     prints html + images for all images in $arr_dir array
 */
-function printImages($arr_dir) {
-
+function printImages($arr_of_dir) {
+    
 }
 
 ?>

@@ -14,6 +14,8 @@ if (isset($_POST['username']) AND isset($_POST['password']) AND $_POST['username
 
     trySignIn($user, $pass);
 
+    header("Location: index.php");
+
     echo "<br>User = $user, Pass = $pass";
 }
 else {

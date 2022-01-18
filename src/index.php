@@ -11,6 +11,14 @@ echo "<br><p> Hello There";
 
 $testing = FALSE;
 
+function load_picture_page() {
+    printHeader();
+
+    
+
+    printFooter();
+}
+
 function load_main_page() {
 
     printHeader();
@@ -39,6 +47,9 @@ function load_main_page() {
 
 }
 
-load_main_page();
+if (!isset($_SESSION['logged_in']) or $_SESSION['logged_in'] === FALSE)
+    load_main_page();
+else 
+    load_picture_page();
 
 ?>

@@ -83,6 +83,22 @@ class sqlite_imp implements db_interface {
         return $person;
 
     }
+
+    public function getByName($username) {
+        $statement = sqlite_imp::$db->prepare('SELECT * FROM DB_NAME WHERE "username" = ?');
+        $statement->bindValue(1, $username);
+        $result = $statement->execute();
+        $row = $result->fetchArray(SQLITE3_ASSOC);
+
+        $person = NULL;
+        if ($row != NULL) {
+            $person = PersonObj::withRow($row);
+        }
+
+        // THROW CUSTOM ERROR IF RESULT IS NULL?
+
+        return $person;
+    }
     public function delete($id) {
         $statement = sqlite_imp::$db->prepare('DELETE FROM DB_NAME WHERE "id" = ?');
 
