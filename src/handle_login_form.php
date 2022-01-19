@@ -10,6 +10,8 @@ if (isset($_POST['username']) AND isset($_POST['password']) AND $_POST['username
     $user = htmlspecialchars($_POST['username']);
     $pass = htmlspecialchars($_POST['password']);
 
+    $_SESSION['username'] = $user;
+
     trySignIn($user, $pass);
 
     // header("Location: index.php");

@@ -48,12 +48,20 @@ class sqlite_imp implements db_interface {
         
 
     }
+
+    public function updateQuota($person) {
+        $statement = sqlite_imp::$db->prepare('UPDATE DB_NAME SET "space_quota" = ? WHERE "id" = ?');
+        $statement->bindValue(1, $person->getQuota());
+        $statement->bindValue(2, $person->getID());
+        $result = $statement->execute();
+        return $result ? TRUE : FALSE;
+    }
     
     /*
         Query DB and unpack results, returning array of PersonObj.
     */
     public function getAllPublic() {
-        $statement = sqlite_imp::$db->prepare('SELECT * FROM DB_NAME');
+        $statement = sqlite_imp::$db->prepare('SELECT * FROM DB_NAME WHERE "privacy" = 0');
         $result = $statement->execute();
 
         $arr = array();
@@ -82,7 +90,7 @@ class sqlite_imp implements db_interface {
 
     }
 
-    public function getPersonHash($hash) {
+    public function getByHash($hash) {
         $statement = sqlite_imp::$db->prepare('SELECT * FROM DB_NAME WHERE "pass_hash" = ?');
         $statement->bindValue(1, $hash);
         $result = $statement->execute();

@@ -69,17 +69,21 @@ function printSignIn() {
 /*
     prints some of the imformation about the user
 */
-function printInfo() {
+function printInfo($person) {
     
-    if ($_SESSION['username'] === "guest") { // just guest info
+    if (!isset($person)) { // just guest info
         echo "<br>You are a Guest, please take off your shoes before entering the house. <br> Thanks ";
     }   
     else { // user logged in, display full info
         echo "<br>Specific, relevant and in-depth user info";
+        echo "<br>" . $person;
+
+        
+
     }   
 
     // also add abbility for user to upload images
-    echo "<p> Images must one of the following formates: jpeg, jpg, png, or gif </p>";
+    echo "<p> Images must be one of the following formats: jpeg, jpg, png, or gif </p>";
     echo "<p> Likewise the max filesize of an image is 500kb currently";
     echo '
     <form action="upload.php" method="post" enctype="multipart/form-data">
@@ -109,7 +113,7 @@ function printFilter() {
 }
 
 /*
-    prints html + images for all images in $arr_dir array
+    creates html for images in directories passes from $arr_of_dir
 */
 function printImages($arr_of_dir) {
     // echo "Pictures are of the following Dir";
@@ -120,14 +124,19 @@ function printImages($arr_of_dir) {
 
     $pics = "pics/";
 
+    if (count($arr_of_dir) == 0) {
+        echo "<br> No Images to display";
+        return;
+    }
+
     // for each directory
     foreach ($arr_of_dir as $sub_dir) {
         $dir = new DirectoryIterator($pics . $sub_dir);
+        // for each file in directory
         foreach ($dir as $fileinfo) {
-            if (!$fileinfo->isDot()) {
-                // var_dump($fileinfo->getFilename());
+            if (!$fileinfo->isDot()) { // if not a dotfile
                 $num_pics+=1;
-                $pic_names[] = $pics . $sub_dir . $fileinfo->getFilename();
+                $pic_names[] = $pics . $sub_dir . $fileinfo->getFilename(); // add name to array
             }
         }
     }
@@ -135,9 +144,9 @@ function printImages($arr_of_dir) {
     $html = "";
 
     $remainder = $num_pics;
-    for ($i = 0; $i < intval($num_pics / $num_cols) + 1; $i++) {
+    for ($i = 0; $i < intval($num_pics / $num_cols) + 1; $i++) { // calcuate and loop over the number of rows to be displayed
         $html .= '<div class="row">';
-        for ($j = 0; $j < $num_cols && $remainder > 0; $j++) {
+        for ($j = 0; $j < $num_cols && $remainder > 0; $j++) { // loop over all picturs in row, stoping early if no more imgs.
             $html .= '
             <div class="column">
             <img class="picture_list_1" src="' . $pic_names[$i * $num_cols + $j] . '" alt = "Picture Sequence" style="width: 100%">

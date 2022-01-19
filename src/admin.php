@@ -25,8 +25,6 @@ function checkCookie() {
         if ($person !== NULL) {
             $_SESSION['user_is_loggedin'] = 1;
             $_SESSION['cookie'] = $uname;
-            // reset expiry date
-            setcookie("uname",$uname,time()+3600*24*365,'/');
             return TRUE;
         }
         else
@@ -36,6 +34,20 @@ function checkCookie() {
         echo "<br> NO COOKIE FOUND";
     }
     return FALSE;
+}
+
+function printUserInfo() {
+
+    $db_ctl = new db_manager();
+    $db = $db_ctl->getDB();
+
+    $person = NULL;
+    if (isset($_SESSION['username']) AND $_SESSION['username'] !== "guest") {
+        $user = $_SESSION['username'];
+        $person = $db->getByName($user);
+    }
+
+    printInfo($person);
 }
 
 
@@ -49,7 +61,9 @@ function trySignIn($user, $pass) {
     $db_ctl = new db_manager();
     $db = $db_ctl->getDB();
 
+    $user = $_SESSION['username'];
     $person = $db->getByName($user);
+
     if ($person === NULL) { // not in DB, reject? how to sign up...setperate page???....???...
         // ASK USER IF THEY WANT TO SIGN UP?
         $_SESSION['login_msg'] = "Im sorry, you don't seem to exist. Why not try signing up with a new acount?";
@@ -64,7 +78,6 @@ function trySignIn($user, $pass) {
         $_SESSION['logged_in'] = 1; // log user in on reload
         $_SESSION['public'] = 1; // display all public images on reload
 
-        setcookie("uname",$person->getPassHash(),time()+3600*24*365,'/'); // this is lazy, should recalcuate user pass hash and update them
         header("Location: index.php");
 
     }
@@ -93,8 +106,9 @@ function displayPics() {
     }
     else {
         echo "<br> PRINTING JUST YOUR IMAGES";
-        $person_name = $_SESSION['username'];
-        $person = $db->getByName($person_name);
+
+        $user = $_COOKIE['uname'];
+        $person = $db->getByHash($user);
 
         if ($person === NULL) { // error, person we operating on not in DB, this should never be reached
             echo "<br>BIG ERROR, WE THE PERSON FOUND IN THE SESSION VARIABLE IS NOT IN OUR DB, THAT DOSEN't MAKE MUCH SENSE";

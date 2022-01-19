@@ -1,5 +1,8 @@
 <?php
 
+define('KB', 1024);
+define('MB', 1048576);
+
 class PersonObj {
 
     private static $num_person = 0;
@@ -70,8 +73,12 @@ class PersonObj {
 
     public function addQuota($additional_space) {
         // only update if have room. 
-        if ($additional_space + $this->space_quota < $self::$allowed_mb)
+        if ($additional_space + $this->space_quota < self::$allowed_mb * MB) {
             $this->space_quota += $additional_space;
+            return TRUE;
+        }
+        else 
+            return FALSE;
     }
     
     public function getQuota() {
@@ -92,13 +99,10 @@ class PersonObj {
 
     public function __toString() {
         $format = " <br>
-        id          = %s<br>
-        username    = %s<br>
-        pic_dir     = %s<br>
-        privacy     = %s<br>
-        space used  = %d%%<br>
-        ----------------------------------------";
-        $out = sprintf($format, $this->id, $this->username, $this->pic_directory, $this->privacy ? 'true' : 'false', $this->space_quota / self::$allowed_mb);
+        User : %s<br>
+        Your privacy is set to : %s. This means you have no privacy and your images are being displayed publicly.<br>
+        Space used  = %d kb / %dmb<br>";
+        $out = sprintf($format, $this->username, $this->privacy ? 'True' : 'False', $this->space_quota / 1000, self::$allowed_mb);
         return $out;
     }
 

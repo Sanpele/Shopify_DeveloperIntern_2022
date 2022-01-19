@@ -6,7 +6,6 @@ session_start();
 $_SESSION['logged_in'] = 1; // log in on reload
 $_SESSION['public'] = 1; // display all public images
 $_SESSION['username'] = "guest"; // guest user
-setcookie("uname",$cookie_hash,time()-3600,'/');
 
 header("Location: ../index.php");
 

@@ -5,10 +5,8 @@ session_start();
 
 $_SESSION['logged_in'] = 0;
 $_SESSION['sign_up'] = 0;
-print_r($_SESSION);
-setcookie("uname",$cookie_hash,time()-3600,'/');
+$_SESSION['clr_cookie'] = 1;
 
 header("Location: ../index.php");
-
 
 ?>

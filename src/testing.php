@@ -175,7 +175,7 @@ function toArr($name, $dir, $privacy, $pass, $hash, $ip) {
     $arr['username'] = $name;
     $arr['pic_directory'] = $dir;
     $arr['privacy'] = $privacy;
-    $arr['space_quota'] = 200;
+    $arr['space_quota'] = 0;
     $arr['password'] = $pass;
     $arr['pass_hash'] = $hash;
     $arr['ipaddress'] = $ip;
