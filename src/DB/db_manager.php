@@ -20,7 +20,7 @@ class db_manager {
         }
     }
 
-    public function resetDB() {
+    private function resetDB() {
         db_manager::$db = NULL;
         unlink("db.sqlite");
         echo "<br> DB IS DELETED";

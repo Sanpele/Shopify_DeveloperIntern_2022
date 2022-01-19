@@ -96,10 +96,7 @@ function printInfo($person) {
         <input type="submit" value="Upload Image" name="submit">
         </form>
         ';
-
     }   
-
-
 
     echo "<hr>";
 
@@ -150,7 +147,7 @@ function printImages($arr_of_dir) {
     }
     
     $html = "";
-
+    
     $remainder = $num_pics;
     for ($i = 0; $i < intval($num_pics / $num_cols) + 1; $i++) { // calcuate and loop over the number of rows to be displayed
         $html .= '<div class="row">';

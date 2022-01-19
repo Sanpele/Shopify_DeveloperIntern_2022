@@ -43,11 +43,6 @@ class sqlite_imp implements db_interface {
 
         $statement->execute(); // you can reuse the statement with different values
     }
-    public function update($person) {
-
-        
-
-    }
 
     public function updateQuota($person) {
         $statement = sqlite_imp::$db->prepare('UPDATE DB_NAME SET "space_quota" = ? WHERE "id" = ?');
@@ -132,12 +127,12 @@ class sqlite_imp implements db_interface {
 
 
 
-    public function userCount() {
+    private function userCount() {
         $userCount = sqlite_imp::$db->querySingle('SELECT COUNT(DISTINCT "id") FROM DB_NAME');
         return $userCount;
     }
 
-    public function deleteAll() {
+    private function deleteAll() {
         $query = "DELETE FROM DB_NAME"; // Query to delete all records 
         $sql = sqlite_imp::$db->prepare($query);
 

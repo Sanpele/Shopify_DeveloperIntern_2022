@@ -32,7 +32,7 @@ function load_menu_page() {
     printHeader();
 
     if (checkCookie()) {
-        // load_picture_page();
+        load_picture_page();
     }
     else {
         printSignIn();
@@ -55,10 +55,11 @@ if ($testing) { // run testing code
 }
 else {
 
-    if ($_SESSION['clr_cookie'] === 1) {
+    if (isset($_SESSION['clr_cookie']) AND $_SESSION['clr_cookie'] === 1) {
         unset($_COOKIE['uname']);
         $_SESSION['clr_cookie'] = 0;
     }
+
 
     // not signed in and wants to 
     if ((!isset($_SESSION['logged_in']) or $_SESSION['logged_in'] === 0) AND isset($_SESSION['sign_up']) AND $_SESSION['sign_up'] === 1) {
