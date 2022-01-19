@@ -6,7 +6,7 @@ define('MB', 1048576);
 class PersonObj {
 
     private static $num_person = 0;
-    private static $allowed_mb = 200;
+    private static $allowed_mb = 1;
 
     private $id;
     public $username;

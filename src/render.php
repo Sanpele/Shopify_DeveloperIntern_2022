@@ -72,26 +72,34 @@ function printSignIn() {
 function printInfo($person) {
     
     if (!isset($person)) { // just guest info
-        echo "<br>You are a Guest, please take off your shoes before entering the house. <br> Thanks ";
+        echo "<br>You are a Guest, please take off your shoes before entering the house";
+
+        echo "<br>To upload images, you must make an account <br> Thanks ";
     }   
     else { // user logged in, display full info
         echo "<br>Specific, relevant and in-depth user info";
         echo "<br>" . $person;
 
-        
+        echo '
+        <form action="redirects/public_switch_redirect.php" method="post">
+        <Button type="submit" name="public_switch" />Switch Public/Private</Button>
+        </form>
+        ';
+
+        // also add abbility for user to upload images
+        echo "<p> Images must be one of the following formats: jpeg, jpg, png, or gif </p>";
+        echo "<p> Likewise the max filesize of an image is 2mb currently, with total space allowed being 20mb of images";
+        echo '
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+        Select image to upload:
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
+        </form>
+        ';
 
     }   
 
-    // also add abbility for user to upload images
-    echo "<p> Images must be one of the following formats: jpeg, jpg, png, or gif </p>";
-    echo "<p> Likewise the max filesize of an image is 500kb currently";
-    echo '
-    <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
-    </form>
-    ';
+
 
     echo "<hr>";
 

@@ -91,6 +91,7 @@ function displayPics() {
     $all_people = $db->getAllPublic();
 
     // print_r($_SESSION);
+
     if (isset($_SESSION['public']) AND $_SESSION['public'] === 1) {
         echo "<br> PRINTING ALL IMAGES";
         $all_people = $db->getAllPublic();
@@ -107,8 +108,8 @@ function displayPics() {
     else {
         echo "<br> PRINTING JUST YOUR IMAGES";
 
-        $user = $_COOKIE['uname'];
-        $person = $db->getByHash($user);
+        $user = $_SESSION['username'];
+        $person = $db->getByName($user);
 
         if ($person === NULL) { // error, person we operating on not in DB, this should never be reached
             echo "<br>BIG ERROR, WE THE PERSON FOUND IN THE SESSION VARIABLE IS NOT IN OUR DB, THAT DOSEN't MAKE MUCH SENSE";
