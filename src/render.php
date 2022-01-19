@@ -54,6 +54,17 @@ function printSignIn() {
     <form action="redirects/sign_up_redirect.php" method="post">
     Sign Up : <Button type="submit" name="Sign Up" />New User (Sign Up)</Button>
     </form>
+    ';
+
+    // if they have guessed wrong previously
+    if (isset($_SESSION['user_bad_pass']) AND $_SESSION['user_bad_pass'] === 1) {
+        // minimally i really should only allow users a few tries. 
+        // Ideally, get some capatchas involved
+        echo "This user exists but you have provided the wrong password, try again"; 
+        unset($_SESSION['user_bad_pass']);
+    }
+
+    echo '
     <form action="handle_login_form.php" method="post">
     <p>Sign In</p>
     <p>Your username: <input type="text" name="username" /></p>

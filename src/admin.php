@@ -33,6 +33,9 @@ function checkCookie() {
     return FALSE;
 }
 
+/*
+    If we have a session user who is not guest, get them print their info
+*/
 function printUserInfo() {
 
     $db_ctl = new db_manager();
@@ -43,8 +46,10 @@ function printUserInfo() {
         $user = $_SESSION['username'];
         $person = $db->getByName($user);
     }
-
-    printInfo($person);
+    if ($person)
+        printInfo($person);
+    else
+        echo "<br> You are a Guest";
 }
 
 
@@ -62,8 +67,8 @@ function signUp($user, $pass) {
     $cookie_hash = md5(sha1($user. $user_ip));
 
     // Commented as Cookies are not working as intended. Room for extension
-    // $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false; 
-    // setcookie("uname",$cookie_hash,time()+3600*24*365,'/', $domain, false);
+    $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false; 
+    setcookie("uname",$cookie_hash,time()+3600*24*365,'/', $domain, false);
     
     $person_arr = toArr($user, $user . '/', FALSE, $pass, $cookie_hash, $user_ip);
     mkdir("pics/" . $person_arr['pic_directory']);
@@ -95,12 +100,19 @@ function trySignIn($user, $pass) {
     }
     
     else { // Person Exists, log in
+        
+        if ($person->checkPass($pass)) {
 
-        $_SESSION['username'] = $user; // set username
-        $_SESSION['logged_in'] = 1; // log user in on reload
-        $_SESSION['public'] = 1; // display all public images on reload
-
-        header("Location: index.php");
+            $_SESSION['username'] = $user; // set username
+            $_SESSION['logged_in'] = 1; // log user in on reload
+            $_SESSION['public'] = 1; // display all public images on reload
+            header("Location: index.php");
+        
+        }
+        else {
+            $_SESSION['user_bad_pass'] = 1;
+            header("Location: index.php");
+        }
 
     }
 

@@ -55,6 +55,13 @@ class PersonObj {
         $this->ipadress = $row['ipaddress'] ?? NULL;
     }
 
+    public function checkPass($pass) {
+        if ($pass === $this->password)
+            return TRUE;
+        else 
+            return FALSE;
+    }
+
     public function getUser() {
         return $this->username;
     }
