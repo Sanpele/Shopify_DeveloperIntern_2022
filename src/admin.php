@@ -47,7 +47,11 @@ function printUserInfo() {
     printInfo($person);
 }
 
-function trySignUp($user, $pass) {
+
+/*
+    Adds the user to DB 
+*/
+function signUp($user, $pass) {
 
     $db_ctl = new db_manager();
     $db = $db_ctl->getDB();
@@ -56,9 +60,6 @@ function trySignUp($user, $pass) {
 
     $user_ip = $_SERVER['REMOTE_ADDR'];
     $cookie_hash = md5(sha1($user. $user_ip));
-
-    // set domain to current domain or false if on localhost
-
 
     // Commented as Cookies are not working as intended. Room for extension
     // $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false; 
@@ -74,8 +75,8 @@ function trySignUp($user, $pass) {
 
 /*
     Checks DB for user-pass combination.
-    if in DB display account info / pictures.
-    if nay, sign user up.
+    if in DB, redirect to display info / pictures.
+    if nay, redirect to sign user up.
 */
 function trySignIn($user, $pass) {
 
@@ -85,8 +86,8 @@ function trySignIn($user, $pass) {
     $user = $_SESSION['username'];
     $person = $db->getByName($user);
 
-    if ($person === NULL) { // not in DB, reject? how to sign up...setperate page???....???...
-        // ASK USER IF THEY WANT TO SIGN UP?
+    if ($person === NULL) { // not in DB, 
+        // Redirect to Sign up
         $_SESSION['login_msg'] = "Im sorry, you don't seem to exist. Why not try signing up with a new acount?";
         $_SESSION['sign_up'] = 1;
         
@@ -105,14 +106,19 @@ function trySignIn($user, $pass) {
 
 }
 
+/*
+    Display all pictures.
+
+    Constructs an array of all picture directorys to display and passes 
+    this to printImages build the html.
+*/
 function displayPics() {
 
     $db_ctl = new db_manager();
     $db = $db_ctl->getDB();
     $all_people = $db->getAllPublic();
 
-    // print_r($_SESSION);
-
+    // If we are displaying all public images
     if (isset($_SESSION['public']) AND $_SESSION['public'] === 1) {
         echo "<br> PRINTING ALL IMAGES";
         $all_people = $db->getAllPublic();
@@ -126,6 +132,7 @@ function displayPics() {
 
         printImages($array_of_dir);
     }
+    // Just displaying the users images
     else {
         echo "<br> PRINTING JUST YOUR IMAGES";
 
@@ -142,6 +149,9 @@ function displayPics() {
     }
 }
 
+/*
+    Helper function to assist in PersonObj creation.
+*/
 function toArr($name, $dir, $privacy, $pass, $hash, $ip) {
 
     $arr = array();

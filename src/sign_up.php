@@ -10,7 +10,7 @@ if (isset($_POST['username']) AND isset($_POST['password']) AND $_POST['username
     $user = htmlspecialchars($_POST['username']);
     $pass = htmlspecialchars($_POST['password']);
 
-    trySignUp($user, $pass);
+    signUp($user, $pass);
 
     $_SESSION['username'] = $user; // set username 
     $_SESSION['logged_in'] = 1; // log in on reload

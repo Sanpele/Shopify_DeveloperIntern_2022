@@ -26,10 +26,6 @@ class PersonObj {
         $instance = new self();
 
         $num = intval(file_get_contents("objects/num_people.txt"));
-        fclose($num_fd);
-
-        echo "<br>THE NUM ==" . $num;
-
         $row['id'] = $num;
         $num++;
 
@@ -97,8 +93,8 @@ class PersonObj {
         $format = " <br>
         User : %s<br>
         Your privacy is set to : %s. This means you have no privacy and your images are being displayed publicly.<br>
-        Space used  = %d kb / %dmb<br>";
-        $out = sprintf($format, $this->username, $this->privacy ? 'True' : 'False', $this->space_quota / 1000, self::$allowed_mb);
+        Space used  = %d kb / %d kb<br>";
+        $out = sprintf($format, $this->username, $this->privacy ? 'True' : 'False', $this->space_quota / 1000, (self::$allowed_mb * MB) / 1000);
         return $out;
     }
 
