@@ -59,16 +59,16 @@ class PersonObj {
         $this->ipadress = $row['ipaddress'] ?? NULL;
     }
 
+    public function getUser() {
+        return $this->username;
+    }
+
     public function getPrivacy() {
         return $this->privacy;
     }
 
     public function getPassHash() {
         return $this->pass_hash;
-    }
-
-    public function getPass() {
-        return $this->password;
     }
 
     public function addQuota($additional_space) {
@@ -91,10 +91,6 @@ class PersonObj {
 
     public function getID() {
         return $this->id;
-    }
-
-    public function getIP() {
-        return $this->ipadress;
     }
 
     public function __toString() {

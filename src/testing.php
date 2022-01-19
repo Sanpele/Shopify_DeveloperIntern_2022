@@ -1,7 +1,6 @@
 <?php
 
 require_once("objects/PersonObj.php");
-require_once("objects/PictureObj.php");
 
 require_once("DB/db_manager.php");
 require_once("DB/SQlite3_DB.php");
@@ -168,21 +167,7 @@ function testDB() {
 
 }
 
-function toArr($name, $dir, $privacy, $pass, $hash, $ip) {
 
-    $arr = array();
-    $arr['id'] = PHP_INT_MAX;
-    $arr['username'] = $name;
-    $arr['pic_directory'] = $dir;
-    $arr['privacy'] = $privacy;
-    $arr['space_quota'] = 0;
-    $arr['password'] = $pass;
-    $arr['pass_hash'] = $hash;
-    $arr['ipaddress'] = $ip;
-
-    return $arr;
-
-}
 
 function test_personObj() {
 

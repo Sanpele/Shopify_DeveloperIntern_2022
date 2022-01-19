@@ -52,7 +52,7 @@ function printSignUp() {
 function printSignIn() {
     echo '
     <form action="redirects/sign_up_redirect.php" method="post">
-    Sign Up : <Button type="submit" name="Sign In" />New User (Sign Up)</Button>
+    Sign Up : <Button type="submit" name="Sign Up" />New User (Sign Up)</Button>
     </form>
     <form action="handle_login_form.php" method="post">
     <p>Sign In</p>

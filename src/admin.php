@@ -23,15 +23,12 @@ function checkCookie() {
         $person = $db->getByHash($uname);
 
         if ($person !== NULL) {
+            $_SESSION['username'] = $person->getUser();
             $_SESSION['user_is_loggedin'] = 1;
             $_SESSION['cookie'] = $uname;
             return TRUE;
         }
-        else
-            echo "<br> COOKIE EXISTS BUT NOT FOUND IN DB";
-    }
-    else {
-        echo "<br> NO COOKIE FOUND";
+        
     }
     return FALSE;
 }
@@ -48,6 +45,30 @@ function printUserInfo() {
     }
 
     printInfo($person);
+}
+
+function trySignUp($user, $pass) {
+
+    $db_ctl = new db_manager();
+    $db = $db_ctl->getDB();
+
+    // print_r($_POST);
+
+    $user_ip = $_SERVER['REMOTE_ADDR'];
+    $cookie_hash = md5(sha1($user. $user_ip));
+
+    // set domain to current domain or false if on localhost
+
+
+    // Commented as Cookies are not working as intended. Room for extension
+    // $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false; 
+    // setcookie("uname",$cookie_hash,time()+3600*24*365,'/', $domain, false);
+    
+    $person_arr = toArr($user, $user . '/', FALSE, $pass, $cookie_hash, $user_ip);
+    mkdir("pics/" . $person_arr['pic_directory']);
+    $new_person = PersonObj::newPerson($person_arr);
+    $db->insert($new_person);
+
 }
 
 
@@ -119,6 +140,22 @@ function displayPics() {
         }
 
     }
+}
+
+function toArr($name, $dir, $privacy, $pass, $hash, $ip) {
+
+    $arr = array();
+    $arr['id'] = PHP_INT_MAX;
+    $arr['username'] = $name;
+    $arr['pic_directory'] = $dir;
+    $arr['privacy'] = $privacy;
+    $arr['space_quota'] = 0;
+    $arr['password'] = $pass;
+    $arr['pass_hash'] = $hash;
+    $arr['ipaddress'] = $ip;
+
+    return $arr;
+
 }
 
 ?>

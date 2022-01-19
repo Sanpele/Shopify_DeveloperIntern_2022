@@ -56,7 +56,15 @@ if ($testing) { // run testing code
 else {
 
     if (isset($_SESSION['clr_cookie']) AND $_SESSION['clr_cookie'] === 1) {
+        // print_r($_SESSION);
+        // echo "<br>";
+        // print_r($_COOKIE);
+        // echo "<br>";
         unset($_COOKIE['uname']);
+        unset($_SESSION['cookie']);
+        // print_r($_SESSION);
+        // echo "<br>";
+        // print_r($_COOKIE);
         $_SESSION['clr_cookie'] = 0;
     }
 
