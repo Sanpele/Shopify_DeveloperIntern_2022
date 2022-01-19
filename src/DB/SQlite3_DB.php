@@ -20,7 +20,7 @@ class sqlite_imp implements db_interface {
             "ipaddress" VARCHAR
         )');
 
-        print_r(sqlite_imp::$db);
+        // print_r(sqlite_imp::$db);
 
         return sqlite_imp::$db;
     }
@@ -58,8 +58,6 @@ class sqlite_imp implements db_interface {
 
         $arr = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            // echo "<br>";
-            // print_r ($row);
             if ($row != NULL)
                 $arr[] = PersonObj::withRow($row);
         }

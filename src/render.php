@@ -131,18 +131,13 @@ function printImages($arr_of_dir) {
             }
         }
     }
-
-    print_r($pic_names);
-    echo "testing 5 / 4" . intval(5 / 4);
     
     $html = "";
 
     $remainder = $num_pics;
     for ($i = 0; $i < intval($num_pics / $num_cols) + 1; $i++) {
-        echo "<br> Adding Row";
         $html .= '<div class="row">';
         for ($j = 0; $j < $num_cols && $remainder > 0; $j++) {
-            echo "Adding column " . $j;
             $html .= '
             <div class="column">
             <img class="picture_list_1" src="' . $pic_names[$i * $num_cols + $j] . '" alt = "Picture Sequence" style="width: 100%">
