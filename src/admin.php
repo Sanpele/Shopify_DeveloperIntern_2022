@@ -54,7 +54,7 @@ function printUserInfo() {
 
 
 /*
-    Adds the user to DB 
+    Adds the user to DB, creates / sets a cookie for the user.
 */
 function signUp($user, $pass) {
 
@@ -66,7 +66,6 @@ function signUp($user, $pass) {
     $user_ip = $_SERVER['REMOTE_ADDR'];
     $cookie_hash = md5(sha1($user. $user_ip));
 
-    // Commented as Cookies are not working as intended. Room for extension
     $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false; 
     setcookie("uname",$cookie_hash,time()+3600*24*365,'/', $domain, false);
     
@@ -102,6 +101,9 @@ function trySignIn($user, $pass) {
     else { // Person Exists, log in
         
         if ($person->checkPass($pass)) {
+
+            $domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false; 
+            setcookie("uname",$cookie_hash,time()+3600*24*365,'/', $domain, false);
 
             $_SESSION['username'] = $user; // set username
             $_SESSION['logged_in'] = 1; // log user in on reload

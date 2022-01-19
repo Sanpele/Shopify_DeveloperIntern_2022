@@ -7,23 +7,19 @@ require_once("admin.php");
 ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/session'));
 session_start();
 
-$testing = FALSE;
+$testing = FALSE; // if true, run display results of testing.php 
 
 function load_picture_page() {
     printHeader();
 
-    echo "<br> You are Logged in ! Hello from the picture page :D";
-
+    // display logout button
     printLogout();
 
-    // print user info
+    // display user info
     printUserInfo();
 
     // display all user pics
     displayPics();
-
-
-    // print pictures
 
     printFooter();
 }
@@ -31,9 +27,12 @@ function load_picture_page() {
 function load_menu_page() {
     printHeader();
 
+    // check if user is still logged in from previous visit
     if (checkCookie()) {
+        // if yes, display pictures
         load_picture_page();
     }
+    // Otherwise, display sign-in imformation
     else {
         printSignIn();
     }
@@ -44,38 +43,37 @@ function load_menu_page() {
 function load_sign_up() {
     printHeader();
 
+    // display sign-up page
     printSignUp();
 
     printFooter();
 
 }
 
-if ($testing) { // run testing code
+// if $testing boolean is true, run test file instead of image repo code.
+if ($testing) { 
     runAllTests();
 }
 else {
 
+    // check if we are logging out, if yes unset cookie
     if (isset($_SESSION['clr_cookie']) AND $_SESSION['clr_cookie'] === 1) {
-        // print_r($_SESSION);
-        // echo "<br>";
-        // print_r($_COOKIE);
-        // echo "<br>";
+
         unset($_COOKIE['uname']);
         unset($_SESSION['cookie']);
-        // print_r($_SESSION);
-        // echo "<br>";
-        // print_r($_COOKIE);
+
         $_SESSION['clr_cookie'] = 0;
     }
 
 
-    // not signed in and wants to 
+    // sign-up
     if ((!isset($_SESSION['logged_in']) or $_SESSION['logged_in'] === 0) AND isset($_SESSION['sign_up']) AND $_SESSION['sign_up'] === 1) {
         load_sign_up();
     }
-    // print_r($_SESSION);
+    // sign-in
     else if (!isset($_SESSION['logged_in']) or $_SESSION['logged_in'] === 0)
         load_menu_page();
+    // display pictures
     else 
         load_picture_page();
 }

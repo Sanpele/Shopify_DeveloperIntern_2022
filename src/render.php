@@ -91,13 +91,14 @@ function printInfo($person) {
         echo "<br>Specific, relevant and in-depth user info";
         echo "<br>" . $person;
 
+        // abbility for a user to toggle between their images and all images
         echo '
         <form action="redirects/public_switch_redirect.php" method="post">
         <Button type="submit" name="public_switch" />Switch Public/Private</Button>
         </form>
         ';
 
-        // also add abbility for user to upload images
+        // abbility for user to upload images
         echo "<p> Images must be one of the following formats: jpeg, jpg, png, or gif </p>";
         echo "<p> Likewise the max filesize of an image is 2mb currently, with total space allowed being 20mb of images";
         echo '
