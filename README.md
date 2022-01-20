@@ -49,6 +49,8 @@ localhost:8000
 
 The Image repository will display in all its glory.
 
+To view testing, Change the $testing boolean in the index.php file to TRUE and reload the webpage. The results of the testing.php file will be loaded instead of the repo code.
+
 :D
 
 ---
