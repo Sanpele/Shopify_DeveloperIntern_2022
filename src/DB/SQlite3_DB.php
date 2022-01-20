@@ -7,7 +7,7 @@ class sqlite_imp implements db_interface {
     private static $db;
 
     public function __construct() {
-        sqlite_imp::$db = new SQLite3('db.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+        sqlite_imp::$db = new SQLite3(DB_NAME . '.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 
         sqlite_imp::$db->query('CREATE TABLE IF NOT EXISTS DB_NAME (
             "id" INTEGER PRIMARY KEY NOT NULL,
@@ -126,18 +126,18 @@ class sqlite_imp implements db_interface {
     }
 
 
-
-    private function userCount() {
+    
+    public function userCount() {
         $userCount = sqlite_imp::$db->querySingle('SELECT COUNT(DISTINCT "id") FROM DB_NAME');
         return $userCount;
     }
 
-    private function deleteAll() {
+    public function deleteAll() {
         $query = "DELETE FROM DB_NAME"; // Query to delete all records 
         $sql = sqlite_imp::$db->prepare($query);
 
         if($sql->execute()){
-            echo "Successfully deleted  records ";
+            // echo "Successfully deleted  records ";
         }
         else{
             print_r($sql->errorInfo()); // if any error is there it will be posted
